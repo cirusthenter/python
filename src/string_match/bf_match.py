@@ -13,7 +13,7 @@ def bf_match(txt: str, pat: str) -> int:
             pt = pt - pp + 1
             pp = 0
         if pp == len(pat):
-            return pt
+            return pt - pp
     return -1
 
 def to_KM(num: int) -> str:
