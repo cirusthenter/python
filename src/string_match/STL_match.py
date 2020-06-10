@@ -1,37 +1,6 @@
 import time
 from header_data import TEST_PATTERNS, SEARCH_LENGTHS, QUERY_LENGTHS, EXPECTED_RESULT 
 
-def kmp_match(txt: str, pat: str) -> int:
-    pt = 1 # cursor for txt
-    pp = 0 # cursor for pat
-    skip = [0] * (len(pat) + 1)
-
-    # create a skip table
-    skip[pt] = 0
-    while pt != len(pat):
-        if pat[pt] == pat[pp]:
-            pt += 1
-            pp += 1
-            skip[pt] = pp
-        elif pp == 0:
-            pt += 1
-            skip[pt] == pp
-        else:
-            pp = skip[pp]
-
-    # search
-    pt = pp = 0
-    while pt != len(txt) and pp != len(pat):
-        if txt[pt] == pat[pp]:
-            pt += 1
-            pp += 1
-        elif pp == 0:
-            pt += 1
-        else:
-            pp = skip[pp]
-    
-    return pt - pp if pp == len(pat) else -1
-
 def to_KM(num: int) -> str:
     if num < 1000:
         return str(num)
@@ -55,7 +24,7 @@ def execute_and_time(test_pattern: str, search_length: int, query_length: int):
     q_f.close()
     start = time.time()
     ## Change to the implemented function
-    res = kmp_match(s, q)
+    res = s.find(q)
     end = time.time() 
     if res == EXPECTED_RESULT[(test_pattern, search_length, query_length)]:
         trial = "success"
